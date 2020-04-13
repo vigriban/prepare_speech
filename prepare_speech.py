@@ -1,23 +1,21 @@
-import transliterate 
-import num2words
-import re
 import argparse
+import re
 import sys
 
-
-def num_to_word(num_match):
-    return num2words.num2words(num_match.group(0))
+import num2words
+import transliterate
 
 
 def translit(text):
-    text_with_replaced_nums = re.sub(r'(\d+)', num_to_word, text)
+    text_with_replaced_nums = re.sub(r'(\d+)', lambda match: num2words.num2words(match.group(0)),
+                                     text)
     return transliterate.translit(text_with_replaced_nums, 'ru')
 
 
 def get_arguments():
     parser = argparse.ArgumentParser()
     parser.add_argument("-f", "--file", help="name of file for translation")
-    parser.add_argument("-o",  "--output", help="output file name")
+    parser.add_argument("-o", "--output", help="output file name")
     return parser.parse_args()
 
 
