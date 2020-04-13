@@ -6,7 +6,7 @@ import num2words
 import transliterate
 
 
-def translit(text):
+def transliterate_english_to_russian(text):
     text_with_replaced_nums = re.sub(r'(\d+)', lambda match: num2words.num2words(match.group(0)),
                                      text)
     return transliterate.translit(text_with_replaced_nums, 'ru')
@@ -24,4 +24,4 @@ if __name__ == '__main__':
     source = open(args.file, 'r') if args.file else sys.stdin
     destination = open(args.output, 'w') if args.output else sys.stdout
     for line in source:
-        print(translit(line), file=destination)
+        print(transliterate_english_to_russian(line), file=destination)
